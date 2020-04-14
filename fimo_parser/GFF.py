@@ -13,6 +13,7 @@ class GFF_Parse:
     def __tokenize(self, line):
         line_list = line.split("\t")
         
+
         line_dict = {}
         
         line_dict["header"] = line_list[0]
@@ -77,7 +78,7 @@ class GFF_Parse:
                     "psci_val" : re.compile(";pvalue=(\d\.?\d*e-\d+);"),
                     "motif_id": re.compile("ID=([^-]+)"),
                     "qsci_val" : re.compile(";qvalue=(\d\.?\d*e-\d+);"),
-                    "name" : re.compile("Name=[^_]*_([^;+-]*)")}
+                    "name" : re.compile("Name=[^_]*_([^;+]*(?<=[^-+]))")}
         
 
         self.dataframe = pd.DataFrame(self.__parse(self.path))
@@ -85,7 +86,6 @@ class GFF_Parse:
         
         
 if __name__ == "__main__":
-
     fimo_obj = GFF_Parse("example_fimo.gff")
     mydf = fimo_obj.dataframe
     print(mydf)
